@@ -25,6 +25,7 @@ for line in lines:
     measurements.append(measurement+0.2)
     measurements.append(measurement-0.2)
 
+# generate mirror images and command to increase training samples and balance the direction of autonomous driving
 augmented_images, augmented_measurements = [], []
 for image, measurement in zip(images, measurements):
     augmented_images.append(image)
@@ -36,10 +37,11 @@ X_train = np.asarray(images)
 y_train = np.asarray(measurements)
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Cropping2D
+from keras.layers import Flatten, Dense, Lambda, Cropping2D, Dropout
 from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
 
+# create model
 model = Sequential()
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160,320,3)))
 model.add(Cropping2D(cropping=((70,25),(0,0))))
@@ -50,12 +52,15 @@ model.add(Convolution2D(64,3,3,activation="relu"))
 model.add(Convolution2D(64,3,3,activation="relu"))
 model.add(Flatten())
 model.add(Dense(100))
+model.add(Dropout(0.5))
 model.add(Dense(50))
+model.add(Dropout(0.5))
 model.add(Dense(10))
+model.add(Dropout(0.5))
 model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=2)
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=5)
 
 model.save('model.h5')
 exit()
