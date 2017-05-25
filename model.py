@@ -30,6 +30,7 @@ def generator(samples, batch_size=32):
                 # center
                 name = './data/IMG/'+batch_sample[0].split('/')[-1]
                 center_image = cv2.imread(name)
+                center_image = cv2.cvtColor(center_image, CV_BGR2GRAY)
                 center_angle = float(batch_sample[3])
                 images.append(center_image)
                 angles.append(center_angle)
@@ -39,6 +40,7 @@ def generator(samples, batch_size=32):
                 # left
                 name = './data/IMG/'+batch_sample[1].split('/')[-1]
                 left_image = cv2.imread(name)
+                left_image = cv2.cvtColor(left_image, CV_BGR2GRAY)
                 left_angle = center_angle + 0.2
                 images.append(left_image)
                 angles.append(left_angle)
@@ -48,6 +50,7 @@ def generator(samples, batch_size=32):
                 # right
                 name = './data/IMG/'+batch_sample[2].split('/')[-1]
                 right_image = cv2.imread(name)
+                right_image = cv2.cvtColor(right_image, CV_BGR2GRAY)
                 right_angle = center_angle - 0.2
                 images.append(right_image)
                 angles.append(right_angle)
