@@ -19,6 +19,8 @@ The goals / steps of this project are the following:
 [image5]: ./examples/placeholder_small.png "Recovery Image"
 [image6]: ./examples/placeholder_small.png "Normal Image"
 [image7]: ./examples/placeholder_small.png "Flipped Image"
+[image8]: ./before_flip.jpg "Image Before Flip"
+[image9]: ./after_flip.jpg "Image After Flip"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -107,7 +109,13 @@ The final model architecture (model.py lines 18-24) consisted of a convolution n
 
 I was trying to collect training data by playing with the simulator. However, I found myself is such a horrible gamer that I always drive into lake or hit the edges. I believe I can generate lots of useful data for recovery from car accidents - in the future.
 
-As a result, I apply the training data provided by Udacity. As mentioned in lesson, I add more data by inverting the images horizontally and multiply all command data with -1 to balance left and right direction, make sure there won't be bias in training data.
+As a result, I apply the training data provided by Udacity. As mentioned in lesson, I add more data by flipping the images horizontally and multiply all command data with -1 to balance left and right direction, make sure there won't be bias in training data.
+
+<br>sample image before flip <br>
+![alt text][image8]
+
+<br>sample image after flip <br>
+![alt text][image9]
 
 On the other hand, I used images from all three cameras provided in this project. For the left and right camera images, an artificial steering angle bias of +/-0.2 has been employed to steer the vehicle back to the track.
 
